@@ -1,0 +1,34 @@
+From a5160b9889f5fe45b33f407df73f1b45afcea34a Mon Sep 17 00:00:00 2001
+From: Akash Yadav <contact@itsaky.com>
+Date: Sun, 18 Oct 2026 16:58:27 +0530
+Subject: [PATCH 2/2] feat: add network traffic indicator in status bar
+
+Signed-off-by: Akash Yadav <contact@itsaky.com>
+---
+ packages/SystemUI/res/layout/status_bar.xml | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/packages/SystemUI/res/layout/status_bar.xml b/packages/SystemUI/res/layout/status_bar.xml
+index e0912a89622c..e11ef0b81043 100644
+--- a/packages/SystemUI/res/layout/status_bar.xml
++++ b/packages/SystemUI/res/layout/status_bar.xml
+@@ -157,6 +157,19 @@
+                     android:layout_marginEnd="@dimen/status_bar_user_chip_end_margin"
+                     layout="@layout/status_bar_user_chip_container" />
+ 
++                <com.itsaky.features.networktraffic.NetworkTrafficView
++                    android:id="@+id/custom_network_traffic"
++                    android:layout_width="wrap_content"
++                    android:layout_height="match_parent"
++                    android:layout_gravity="center_vertical"
++                    android:layoutDirection="ltr"
++                    android:gravity="center_vertical|end"
++                    android:paddingEnd="4dp"
++                    android:maxLines="2"
++                    android:lineSpacingMultiplier="0.9"
++                    android:textAppearance="@style/TextAppearance.StatusBar.Default"
++                    android:textSize="9sp" />
++
+                 <include layout="@layout/system_icons"
+                      android:layout_gravity="center_vertical"
+                      android:layout_width="wrap_content"

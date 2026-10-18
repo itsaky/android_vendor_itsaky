@@ -2,7 +2,12 @@ android_library {
   name: "custom-sdk",
   srcs: ["src/**/*.kt"],
   manifest: "AndroidManifest.xml",
+  resource_dirs: ["res"],
   platform_apis: true,
   use_resource_processor: true,
   visibility: ["//visibility:public"],
+
+  static_libs: [
+    "androidx.appcompat_appcompat"
+  ]
 }

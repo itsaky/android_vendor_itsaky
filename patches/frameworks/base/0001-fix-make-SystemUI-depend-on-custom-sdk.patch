@@ -1,7 +1,7 @@
 From c6d1b3f7709efc8cd0c5708ec6ea30225234b6a6 Mon Sep 17 00:00:00 2001
 From: Akash Yadav <contact@itsaky.com>
 Date: Sun, 18 Oct 2026 12:30:21 +0530
-Subject: [PATCH] fix: make SystemUI depend on custom-sdk
+Subject: [PATCH 1/2] fix: make SystemUI depend on custom-sdk
 
 Signed-off-by: Akash Yadav <contact@itsaky.com>
 ---
