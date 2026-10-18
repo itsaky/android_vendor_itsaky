@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="itsaky"  fetch="https://github.com/itsaky/" />
+  <remote name="fdroid" fetch="https://gitlab.com/fdroid/" />
+
+  <project path="vendor/itsaky"
+   name="android_vendor_itsaky"
+   remote="itsaky"
+   revision="main" />
+
+  <project path="packages/apps/F-DroidPrivilegedExtension"
+   name="privileged-extension.git"
+   remote="fdroid"
+   revision="refs/tags/0.2.13" />
+
+</manifest>
