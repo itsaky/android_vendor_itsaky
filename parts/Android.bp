@@ -1,0 +1,33 @@
+android_app {
+  name: "CustomParts",
+
+  srcs: ["src/**/*.kt"],
+  resource_dirs: ["res"],
+  manifest: "AndroidManifest.xml",
+
+  platform_apis: true,
+  certificate: "platform",
+
+  optimize: {
+      enabled: true,
+      optimize: true,
+      shrink_resources: true,
+      proguard_flags_files: ["proguard.flags"],
+  },
+
+  static_libs: [
+    "custom-sdk",
+    "androidx.activity_activity-compose",
+    "androidx.compose.runtime_runtime",
+    "androidx.compose.foundation_foundation",
+    "androidx.compose.foundation_foundation-layout",
+    "androidx.compose.material3_material3",
+    "androidx.compose.material_material-icons-extended",
+    "androidx.compose.ui_ui-tooling-preview",
+    "androidx.lifecycle_lifecycle-runtime-compose",
+    "androidx.lifecycle_lifecycle-viewmodel-compose",
+    "androidx.lifecycle_lifecycle-viewmodel-ktx",
+    "androidx.navigation_navigation-compose",
+    "androidx.preference_preference",
+  ],
+}
