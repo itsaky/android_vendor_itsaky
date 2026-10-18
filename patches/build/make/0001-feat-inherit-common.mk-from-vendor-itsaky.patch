@@ -1,0 +1,22 @@
+From c9dfbf5ee18341e32cf7a23e74427762bb4328ea Mon Sep 17 00:00:00 2001
+From: Akash Yadav <contact@itsaky.com>
+Date: Sun, 18 Oct 2026 11:42:34 +0530
+Subject: [PATCH] feat: inherit common.mk from vendor/itsaky
+
+Signed-off-by: Akash Yadav <contact@itsaky.com>
+---
+ target/product/base_system.mk | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/target/product/base_system.mk b/target/product/base_system.mk
+index cacffe5336..0f2de2fd24 100644
+--- a/target/product/base_system.mk
++++ b/target/product/base_system.mk
+@@ -672,3 +672,7 @@ $(call inherit-product,$(SRC_TARGET_DIR)/product/updatable_apex.mk)
+ 
+ $(call soong_config_set, bionic, large_system_property_node, $(RELEASE_LARGE_SYSTEM_PROPERTY_NODE))
+ $(call soong_config_set, Aconfig, read_from_new_storage, $(RELEASE_READ_FROM_NEW_STORAGE))
++
++# Include custom stuff
++$(call inherit-product-if-exists, vendor/itsaky/config/common.mk)
++
