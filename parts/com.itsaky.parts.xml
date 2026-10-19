@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <permissions>
-  <privapp-permissions>
-
+  <privapp-permissions package="com.itsaky.parts">
+    <permission name="android.permission.READ_SEARCH_INDEXABLES" />
+    <permission name="android.permission.WRITE_SECURE_SETTINGS" />
   </privapp-permissions>
 </permissions>
