@@ -8,11 +8,50 @@ import android.provider.Settings
 object CustomSettings {
 
     interface SettingsStore {
-        fun getInt(resolver: ContentResolver, name: String, default: Int = 0): Int
-        fun getLong(resolver: ContentResolver, name: String, default: Long = 0): Long
+        fun getInt(
+            resolver: ContentResolver,
+            name: String,
+            default: Int = 0,
+            userId: Int = UserHandle.myUserId()
+        ): Int
 
-        fun getBool(resolver: ContentResolver, name: String, default: Boolean = false): Boolean {
-            return getInt(resolver, name, if (default) 1 else 0) == 1
+        fun putInt(
+            resolver: ContentResolver,
+            name: String,
+            value: Int,
+            userId: Int = UserHandle.myUserId(),
+        )
+
+        fun getLong(
+            resolver: ContentResolver,
+            name: String,
+            default: Long = 0,
+            userId: Int = UserHandle.myUserId(),
+        ): Long
+
+        fun putLong(
+            resolver: ContentResolver,
+            name: String,
+            value: Long,
+            userId: Int = UserHandle.myUserId(),
+        )
+
+        fun getBool(
+            resolver: ContentResolver,
+            name: String,
+            default: Boolean = false,
+            userId: Int = UserHandle.myUserId(),
+        ): Boolean {
+            return getInt(resolver, name, if (default) 1 else 0, userId) == 1
+        }
+
+        fun putBool(
+            resolver: ContentResolver,
+            name: String,
+            value: Boolean,
+            userId: Int = UserHandle.myUserId(),
+        ) {
+            putInt(resolver, name, if (value) 1 else 0, userId)
         }
 
         fun getUriFor(name: String): Uri
@@ -20,22 +59,40 @@ object CustomSettings {
 
     object System : SettingsStore {
 
-        override fun getInt(resolver: ContentResolver, name: String, default: Int): Int {
+        override fun getInt(
+            resolver: ContentResolver,
+            name: String,
+            default: Int,
+            userId: Int
+        ): Int {
             return Settings.System.getIntForUser(
                 resolver,
                 name,
                 default,
-                UserHandle.USER_CURRENT
+                userId,
             )
         }
 
-        override fun getLong(resolver: ContentResolver, name: String, default: Long): Long {
+        override fun putInt(resolver: ContentResolver, name: String, value: Int, userId: Int) {
+            Settings.System.putIntForUser(resolver, name, value, userId)
+        }
+
+        override fun getLong(
+            resolver: ContentResolver,
+            name: String,
+            default: Long,
+            userId: Int
+        ): Long {
             return Settings.System.getLongForUser(
                 resolver,
                 name,
                 default,
-                UserHandle.USER_CURRENT
+                userId,
             )
+        }
+
+        override fun putLong(resolver: ContentResolver, name: String, value: Long, userId: Int) {
+            Settings.System.putLongForUser(resolver, name, value, userId)
         }
 
         override fun getUriFor(name: String): Uri {
@@ -52,22 +109,40 @@ object CustomSettings {
         const val NETWORK_TRAFFIC_UNITS = "custom_network_traffic_units"
         const val NETWORK_TRAFFIC_SHOW_UNITS = "custom_network_traffic_show_units"
 
-        override fun getInt(resolver: ContentResolver, name: String, default: Int): Int {
+        override fun getInt(
+            resolver: ContentResolver,
+            name: String,
+            default: Int,
+            userId: Int
+        ): Int {
             return Settings.Secure.getIntForUser(
                 resolver,
                 name,
                 default,
-                UserHandle.USER_CURRENT
+                userId,
             )
         }
 
-        override fun getLong(resolver: ContentResolver, name: String, default: Long): Long {
+        override fun putInt(resolver: ContentResolver, name: String, value: Int, userId: Int) {
+            Settings.Secure.putIntForUser(resolver, name, value, userId)
+        }
+
+        override fun getLong(
+            resolver: ContentResolver,
+            name: String,
+            default: Long,
+            userId: Int
+        ): Long {
             return Settings.Secure.getLongForUser(
                 resolver,
                 name,
                 default,
-                UserHandle.USER_CURRENT
+                userId,
             )
+        }
+
+        override fun putLong(resolver: ContentResolver, name: String, value: Long, userId: Int) {
+            Settings.Secure.putLongForUser(resolver, name, value, userId)
         }
 
         override fun getUriFor(name: String): Uri {

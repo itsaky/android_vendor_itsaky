@@ -300,31 +300,37 @@ class NetworkTrafficView @JvmOverloads constructor(
             resolver,
             CustomSettings.Secure.NETWORK_TRAFFIC_MODE,
             MODE_DEFAULT,
+            UserHandle.USER_CURRENT,
         )
         mPosition = CustomSettings.Secure.getInt(
             resolver,
             CustomSettings.Secure.NETWORK_TRAFFIC_POSITION,
-            POSITION_DEFAULT
+            POSITION_DEFAULT,
+            UserHandle.USER_CURRENT,
         )
         mAutoHide = CustomSettings.Secure.getBool(
             resolver,
             CustomSettings.Secure.NETWORK_TRAFFIC_AUTOHIDE,
             false,
+            UserHandle.USER_CURRENT,
         )
         mHideArrows = CustomSettings.Secure.getBool(
             resolver,
             CustomSettings.Secure.NETWORK_TRAFFIC_HIDE_ARROWS,
             false,
+            UserHandle.USER_CURRENT,
         )
         mUnits = CustomSettings.Secure.getInt(
             resolver,
             CustomSettings.Secure.NETWORK_TRAFFIC_UNITS,
-            UNITS_DEFAULT
+            UNITS_DEFAULT,
+            UserHandle.USER_CURRENT,
         )
         mShowUnits = CustomSettings.Secure.getInt(
             resolver,
             CustomSettings.Secure.NETWORK_TRAFFIC_SHOW_UNITS,
-            SHOW_UNITS_ON
+            SHOW_UNITS_ON,
+            UserHandle.USER_CURRENT,
         )
 
         mAutoHideThreshold = when (mUnits) {
@@ -373,7 +379,7 @@ class NetworkTrafficView @JvmOverloads constructor(
         private const val MODE_UPSTREAM_ONLY = 1
         private const val MODE_DOWNSTREAM_ONLY = 2
         private const val MODE_UPSTREAM_AND_DOWNSTREAM = 3
-        private const val MODE_DEFAULT = MODE_UPSTREAM_AND_DOWNSTREAM
+        const val MODE_DEFAULT = MODE_UPSTREAM_AND_DOWNSTREAM
 
         private const val POSITION_START = 0
         private const val POSITION_CENTER = 1
