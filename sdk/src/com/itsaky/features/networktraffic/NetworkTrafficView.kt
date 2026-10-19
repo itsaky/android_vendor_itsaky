@@ -32,8 +32,6 @@ class NetworkTrafficView @JvmOverloads constructor(
     private val mObserver: SettingsObserver
 
     private var mMode = MODE_DEFAULT
-    private var mPosition = POSITION_DEFAULT
-    private var mViewPosition = POSITION_DEFAULT
     private var mNetworkTrafficIsVisible: Boolean
     private var mTxKbps: Long = 0
     private var mRxKbps: Long = 0
@@ -51,10 +49,6 @@ class NetworkTrafficView @JvmOverloads constructor(
     // Used to indicate that the set of sources contributing
     // to current stats have changed.
     private var mNetworksChanged = true
-
-    fun setViewPosition(vpos: Int) {
-        mViewPosition = vpos
-    }
 
     init {
         val resources = getResources()
@@ -103,8 +97,7 @@ class NetworkTrafficView @JvmOverloads constructor(
             }
 
             private fun displayStatsAndReschedule() {
-                val enabled =
-                    mMode != MODE_DISABLED && mPosition == mViewPosition
+                val enabled = mMode != MODE_DISABLED
                 val showUpstream =
                     mMode == MODE_UPSTREAM_ONLY || mMode == MODE_UPSTREAM_AND_DOWNSTREAM
                 val showDownstream =
@@ -254,12 +247,6 @@ class NetworkTrafficView @JvmOverloads constructor(
             )
             resolver.registerContentObserver(
                 CustomSettings.Secure.getUriFor(
-                    CustomSettings.Secure.NETWORK_TRAFFIC_POSITION
-                ),
-                false, this, UserHandle.USER_ALL
-            )
-            resolver.registerContentObserver(
-                CustomSettings.Secure.getUriFor(
                     CustomSettings.Secure.NETWORK_TRAFFIC_AUTOHIDE
                 ),
                 false, this, UserHandle.USER_ALL
@@ -302,12 +289,6 @@ class NetworkTrafficView @JvmOverloads constructor(
             MODE_DEFAULT,
             UserHandle.USER_CURRENT,
         )
-        mPosition = CustomSettings.Secure.getInt(
-            resolver,
-            CustomSettings.Secure.NETWORK_TRAFFIC_POSITION,
-            POSITION_DEFAULT,
-            UserHandle.USER_CURRENT,
-        )
         mAutoHide = CustomSettings.Secure.getBool(
             resolver,
             CustomSettings.Secure.NETWORK_TRAFFIC_AUTOHIDE,
@@ -333,13 +314,7 @@ class NetworkTrafficView @JvmOverloads constructor(
             UserHandle.USER_CURRENT,
         )
 
-        mAutoHideThreshold = when (mUnits) {
-            UNITS_KILOBITS -> AUTOHIDE_THRESHOLD_KILOBITS
-            UNITS_MEGABITS -> AUTOHIDE_THRESHOLD_MEGABITS
-            UNITS_KILOBYTES, UNITS_AUTO_BYTES -> AUTOHIDE_THRESHOLD_KILOBYTES
-            UNITS_MEGABYTES -> AUTOHIDE_THRESHOLD_MEGABYTES
-            else -> 0
-        }
+        mAutoHideThreshold = autoHideThresholdKbps(mUnits)
 
         if (mMode != MODE_DISABLED) {
             updateTrafficDrawable()
@@ -375,37 +350,41 @@ class NetworkTrafficView @JvmOverloads constructor(
 
     companion object {
         private const val TAG = "NetworkTrafficView"
-        private const val MODE_DISABLED = 0
-        private const val MODE_UPSTREAM_ONLY = 1
-        private const val MODE_DOWNSTREAM_ONLY = 2
-        private const val MODE_UPSTREAM_AND_DOWNSTREAM = 3
+        const val MODE_DISABLED = 0
+        const val MODE_UPSTREAM_ONLY = 1
+        const val MODE_DOWNSTREAM_ONLY = 2
+        const val MODE_UPSTREAM_AND_DOWNSTREAM = 3
         const val MODE_DEFAULT = MODE_UPSTREAM_AND_DOWNSTREAM
-
-        private const val POSITION_START = 0
-        private const val POSITION_CENTER = 1
-        private const val POSITION_END = 2
-        private const val POSITION_DEFAULT = POSITION_END
 
         private const val MESSAGE_TYPE_PERIODIC_REFRESH = 0
         private const val MESSAGE_TYPE_UPDATE_VIEW = 1
 
         private const val REFRESH_INTERVAL = 2000
 
-        private const val UNITS_KILOBITS = 0
-        private const val UNITS_MEGABITS = 1
-        private const val UNITS_KILOBYTES = 2
-        private const val UNITS_MEGABYTES = 3
-        private const val UNITS_AUTO_BYTES = 4
-        private const val UNITS_DEFAULT = UNITS_AUTO_BYTES
+        const val UNITS_KILOBITS = 0
+        const val UNITS_MEGABITS = 1
+        const val UNITS_KILOBYTES = 2
+        const val UNITS_MEGABYTES = 3
+        const val UNITS_AUTO_BYTES = 4
+        const val UNITS_DEFAULT = UNITS_AUTO_BYTES
 
-        private const val SHOW_UNITS_OFF = 0
-        private const val SHOW_UNITS_ON = 1
-        private const val SHOW_UNITS_COMPACT = 2
+        const val SHOW_UNITS_OFF = 0
+        const val SHOW_UNITS_ON = 1
+        const val SHOW_UNITS_COMPACT = 2
 
         // Thresholds themselves are always defined in kbps
         private const val AUTOHIDE_THRESHOLD_KILOBITS: Long = 10
         private const val AUTOHIDE_THRESHOLD_MEGABITS: Long = 100
         private const val AUTOHIDE_THRESHOLD_KILOBYTES: Long = 8
         private const val AUTOHIDE_THRESHOLD_MEGABYTES: Long = 80
+
+        /** Returns the traffic rate in kbps below which the indicator auto-hides for [units]. */
+        fun autoHideThresholdKbps(units: Int): Long = when (units) {
+            UNITS_KILOBITS -> AUTOHIDE_THRESHOLD_KILOBITS
+            UNITS_MEGABITS -> AUTOHIDE_THRESHOLD_MEGABITS
+            UNITS_KILOBYTES, UNITS_AUTO_BYTES -> AUTOHIDE_THRESHOLD_KILOBYTES
+            UNITS_MEGABYTES -> AUTOHIDE_THRESHOLD_MEGABYTES
+            else -> 0
+        }
     }
 }

@@ -103,7 +103,6 @@ object CustomSettings {
     object Secure : SettingsStore {
 
         const val NETWORK_TRAFFIC_MODE = "custom_network_traffic_mode"
-        const val NETWORK_TRAFFIC_POSITION = "custom_network_traffic_position"
         const val NETWORK_TRAFFIC_AUTOHIDE = "custom_network_traffic_autohide"
         const val NETWORK_TRAFFIC_HIDE_ARROWS = "custom_network_traffic_hide_arrows"
         const val NETWORK_TRAFFIC_UNITS = "custom_network_traffic_units"
