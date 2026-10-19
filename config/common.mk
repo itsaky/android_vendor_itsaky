@@ -6,4 +6,3 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/itsaky/overlay
 
 # Prebuilt apps from apps/manifest.yml
 -include vendor/itsaky/apps/apps.mk
-
