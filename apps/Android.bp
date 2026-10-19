@@ -5,6 +5,8 @@ android_app_import {
     apk: "prebuilt/QUIK.apk",
     preprocessed: true,
     product_specific: true,
+    overrides: ["Messaging"],
+    optional_uses_libs: ["org.apache.http.legacy"],
 }
 
 android_app_import {
@@ -12,4 +14,30 @@ android_app_import {
     apk: "prebuilt/Lawnchair.apk",
     preprocessed: true,
     product_specific: true,
+    optional_uses_libs: ["androidx.window.extensions", "androidx.window.sidecar"],
+}
+
+android_app_import {
+    name: "ClockYou",
+    apk: "prebuilt/ClockYou.apk",
+    preprocessed: true,
+    product_specific: true,
+    overrides: ["DeskClock"],
+    optional_uses_libs: ["androidx.window.extensions", "androidx.window.sidecar"],
+}
+
+android_app_import {
+    name: "FossifyCalculator",
+    apk: "prebuilt/FossifyCalculator.apk",
+    preprocessed: true,
+    product_specific: true,
+    overrides: ["ExactCalculator"],
+}
+
+android_app_import {
+    name: "FossifyGallery",
+    apk: "prebuilt/FossifyGallery.apk",
+    preprocessed: true,
+    product_specific: true,
+    overrides: ["Gallery2"],
 }

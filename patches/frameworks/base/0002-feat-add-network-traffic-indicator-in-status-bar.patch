@@ -1,7 +1,7 @@
-From a5160b9889f5fe45b33f407df73f1b45afcea34a Mon Sep 17 00:00:00 2001
+From 7193f12404c17200e53de918816e1ebf4d10d124 Mon Sep 17 00:00:00 2001
 From: Akash Yadav <contact@itsaky.com>
 Date: Sun, 18 Oct 2026 16:58:27 +0530
-Subject: [PATCH 2/2] feat: add network traffic indicator in status bar
+Subject: [PATCH 2/3] feat: add network traffic indicator in status bar
 
 Signed-off-by: Akash Yadav <contact@itsaky.com>
 ---

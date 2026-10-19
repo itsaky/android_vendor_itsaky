@@ -5,9 +5,35 @@ apps:
     signing_certs:
       - 528b89a67e258635be2129a74e2744f9020b0b122708f8091b5fd3ca0c1d2ddf
     partition: product
+    overrides:
+      - Messaging
   - name: Lawnchair
     url: https://github.com/LawnchairLauncher/lawnchair/releases/download/v15.0.0-beta3.0/Lawnchair.15.0.0.Beta.3.0.apk
     sha256: d4200d0985169fd79ba1bd225d653f2a2fe7b50aa07cb0d05ca64c7623f86059
     signing_certs:
       - 747c3645b357258b2e23e851e53c96747fe0add007e5ba2cd97e8c85572e4dc5
     partition: product
+  - name: ClockYou
+    url: https://github.com/you-apps/ClockYou/releases/download/v12.1/app-release.apk
+    sha256: e2543ddb4b30c8f2480eb1b3732d0ad9043c6ab8ca86736baeb2c4270551f87d
+    signing_certs:
+      - b3bc73b117df5dfe38130c6c2b946852ae7088557fe8e433f0d9983a6b55cc95
+    partition: product
+    overrides:
+      - DeskClock
+  - name: FossifyCalculator
+    url: https://github.com/FossifyOrg/Calculator/releases/download/1.4.0/calculator-10-foss-release.apk
+    sha256: 7c5443c22d6d62c67dfe80df33ea9161ff0fa440f92590bcb45d7008b57613ed
+    signing_certs:
+      - affdb124d3f4720c2f98dbca9eacba0514fba4306e20a2786c861c3c0d6ff292
+    partition: product
+    overrides:
+      - ExactCalculator
+  - name: FossifyGallery
+    url: https://github.com/FossifyOrg/Gallery/releases/download/1.14.0/gallery-29-foss-release.apk
+    sha256: cfa321d7467b116741689f8f118b46011c882a4c2359b9320111f87c998af373
+    signing_certs:
+      - affdb124d3f4720c2f98dbca9eacba0514fba4306e20a2786c861c3c0d6ff292
+    partition: product
+    overrides:
+      - Gallery2
