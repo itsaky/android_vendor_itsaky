@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+    <!--  Status bar  -->
+    <string name="settings_sb_title">Status bar</string>
+
+    <!--  Network traffic  -->
+    <string name="settings_nti_title">Network traffic indicator</string>
+    <string-array name="settings_nti_mode_options">
+        <item>Disabled</item>
+        <item>Upstream only</item>
+        <item>Downstream only</item>
+        <item>Upstream and Downstream</item>
+    </string-array>
+
+</resources>
