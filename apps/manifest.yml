@@ -1,0 +1,13 @@
+apps:
+  - name: QUIK
+    url: https://github.com/quik-sms/quik/releases/download/v4.3.7/QUIK-v4.3.7-release.apk
+    sha256: 107631ae6a64a6d7283c9a412d77c54eb14b1a07f205ed8273263382e59fb228
+    signing_certs:
+      - 528b89a67e258635be2129a74e2744f9020b0b122708f8091b5fd3ca0c1d2ddf
+    partition: product
+  - name: Lawnchair
+    url: https://github.com/LawnchairLauncher/lawnchair/releases/download/v15.0.0-beta3.0/Lawnchair.15.0.0.Beta.3.0.apk
+    sha256: d4200d0985169fd79ba1bd225d653f2a2fe7b50aa07cb0d05ca64c7623f86059
+    signing_certs:
+      - 747c3645b357258b2e23e851e53c96747fe0add007e5ba2cd97e8c85572e4dc5
+    partition: product
