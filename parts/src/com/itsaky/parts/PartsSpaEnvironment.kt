@@ -21,7 +21,7 @@ import com.android.settingslib.spa.framework.common.SettingsPageProviderReposito
 import com.android.settingslib.spa.framework.common.SpaEnvironment
 import com.android.settingslib.spa.framework.common.createSettingsPage
 import com.itsaky.parts.settings.PartsSettingsHomeProvider
-import com.itsaky.parts.settings.NtiModeSettingsProvider
+import com.itsaky.parts.settings.NetworkTrafficSettingsProvider
 
 class PartsSpaEnvironment(
     context: Context,
@@ -30,7 +30,7 @@ class PartsSpaEnvironment(
         SettingsPageProviderRepository(
             allPageProviders = listOf(
                 PartsSettingsHomeProvider,
-                NtiModeSettingsProvider,
+                NetworkTrafficSettingsProvider,
             ),
             rootPages = listOf(PartsSettingsHomeProvider.createSettingsPage())
         )

@@ -16,50 +16,98 @@
 
 package com.itsaky.parts.util
 
-import android.content.ContentResolver
+import android.database.ContentObserver
+import android.os.Handler
+import android.os.Looper
 import android.os.UserHandle
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.platform.LocalContext
 import com.itsaky.settings.CustomSettings
 
-fun secureSettingsIntStateOf(
-    resolver: ContentResolver,
+/**
+ * Remembers a secure setting as a state that follows external changes and writes through on set.
+ */
+@Composable
+fun rememberSecureSettingsIntState(
     key: String,
     defaultValue: Int = 0,
     userId: Int = UserHandle.myUserId(),
 ): MutableIntState {
-    val state = mutableIntStateOf(
-        CustomSettings.Secure.getInt(resolver, key, defaultValue, userId)
-    )
+    val resolver = LocalContext.current.contentResolver
+    val read = { CustomSettings.Secure.getInt(resolver, key, defaultValue, userId) }
+    val state = remember(key, defaultValue, userId) { mutableIntStateOf(read()) }
 
-    return object : MutableIntState by state {
-        override var intValue: Int
-            get() = state.intValue
-            set(value) {
-                CustomSettings.Secure.putInt(resolver, key, value, userId)
-                state.intValue = value
-            }
+    ObserveSecureSetting(key, userId) { state.intValue = read() }
+
+    return remember(state) {
+        object : MutableIntState by state {
+            override var intValue: Int
+                get() = state.intValue
+                set(newValue) {
+                    CustomSettings.Secure.putInt(resolver, key, newValue, userId)
+                    state.intValue = newValue
+                }
+
+            override var value: Int
+                get() = intValue
+                set(newValue) {
+                    intValue = newValue
+                }
+
+            override fun component2(): (Int) -> Unit = { intValue = it }
+        }
     }
 }
 
-fun secureSettingsBoolStateOf(
-    resolver: ContentResolver,
+/**
+ * Remembers a boolean secure setting as a state that follows external changes and writes through.
+ */
+@Composable
+fun rememberSecureSettingsBoolState(
     key: String,
     defaultValue: Boolean = false,
     userId: Int = UserHandle.myUserId(),
 ): MutableState<Boolean> {
-    val state = mutableStateOf(
-        CustomSettings.Secure.getBool(resolver, key, defaultValue, userId)
-    )
+    val intState = rememberSecureSettingsIntState(key, if (defaultValue) 1 else 0, userId)
 
-    return object : MutableState<Boolean> by state {
-        override var value: Boolean
-            get() = state.value
-            set(value) {
-                CustomSettings.Secure.putBool(resolver, key, value, userId)
-                state.value = value
-            }
+    return remember(intState) {
+        object : MutableState<Boolean> {
+            override var value: Boolean
+                get() = intState.intValue == 1
+                set(newValue) {
+                    intState.intValue = if (newValue) 1 else 0
+                }
+
+            override fun component1() = value
+
+            override fun component2(): (Boolean) -> Unit = { value = it }
+        }
+    }
+}
+
+@Composable
+private fun ObserveSecureSetting(key: String, userId: Int, onChange: () -> Unit) {
+    val resolver = LocalContext.current.contentResolver
+    val latestOnChange = rememberUpdatedState(onChange)
+
+    DisposableEffect(resolver, key, userId) {
+        val observer = object : ContentObserver(Handler(Looper.getMainLooper())) {
+            override fun onChange(selfChange: Boolean) = latestOnChange.value()
+        }
+        resolver.registerContentObserver(
+            CustomSettings.Secure.getUriFor(key),
+            false,
+            observer,
+            userId,
+        )
+        latestOnChange.value()
+
+        onDispose { resolver.unregisterContentObserver(observer) }
     }
 }

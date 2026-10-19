@@ -22,7 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import com.android.settingslib.spa.framework.common.SettingsPageProvider
 import com.android.settingslib.spa.framework.common.SpaEnvironmentFactory
-import com.android.settingslib.spa.widget.scaffold.HomeScaffold
+import com.android.settingslib.spa.widget.scaffold.RegularScaffold
 import com.android.settingslib.spa.widget.ui.Category
 import com.itsaky.parts.R
 
@@ -34,10 +34,10 @@ object PartsSettingsHomeProvider : SettingsPageProvider {
 
     @Composable
     override fun Page(arguments: Bundle?) {
-       val title = remember { getTitle(arguments) }
-        HomeScaffold(title) {
+        val title = remember { getTitle(arguments) }
+        RegularScaffold(title) {
             Category(title = stringResource(R.string.settings_sb_title)) {
-                NtiModeSettingsProvider.Entry()
+                NetworkTrafficSettingsProvider.Entry()
             }
         }
     }

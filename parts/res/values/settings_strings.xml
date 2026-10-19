@@ -5,12 +5,32 @@
     <string name="settings_sb_title">Status bar</string>
 
     <!--  Network traffic  -->
-    <string name="settings_nti_title">Network traffic indicator</string>
-    <string-array name="settings_nti_mode_options">
-        <item>Disabled</item>
-        <item>Upstream only</item>
-        <item>Downstream only</item>
-        <item>Upstream and Downstream</item>
-    </string-array>
+    <string name="settings_network_traffic_title">Network traffic indicator</string>
+    <string name="settings_network_traffic_category_general">General</string>
+    <string name="settings_network_traffic_category_display">Display</string>
+
+    <string name="settings_network_traffic_mode_title">Mode</string>
+    <string name="settings_network_traffic_mode_disabled">Disabled</string>
+    <string name="settings_network_traffic_mode_upstream_only">Upstream only</string>
+    <string name="settings_network_traffic_mode_downstream_only">Downstream only</string>
+    <string name="settings_network_traffic_mode_upstream_and_downstream">Upstream and downstream</string>
+
+    <string name="settings_network_traffic_units_title">Units</string>
+    <string name="settings_network_traffic_units_kilobits">Kilobits per second</string>
+    <string name="settings_network_traffic_units_megabits">Megabits per second</string>
+    <string name="settings_network_traffic_units_kilobytes">Kilobytes per second</string>
+    <string name="settings_network_traffic_units_megabytes">Megabytes per second</string>
+    <string name="settings_network_traffic_units_auto_bytes">Automatic (bytes)</string>
+
+    <string name="settings_network_traffic_show_units_title">Show units</string>
+    <string name="settings_network_traffic_show_units_off">Off</string>
+    <string name="settings_network_traffic_show_units_on">On</string>
+    <string name="settings_network_traffic_show_units_compact">Compact</string>
+
+    <string name="settings_network_traffic_autohide_title">Auto-hide</string>
+    <string name="settings_network_traffic_autohide_summary">Hide the indicator while traffic is below %1$s</string>
+
+    <string name="settings_network_traffic_hide_arrows_title">Hide arrows</string>
+    <string name="settings_network_traffic_hide_arrows_summary">Do not show upstream and downstream arrows</string>
 
 </resources>
